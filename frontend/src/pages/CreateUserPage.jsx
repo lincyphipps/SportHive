@@ -5,16 +5,16 @@ const CreateUserPage = () => {
   //https://www.youtube.com/watch?v=8QgQKRcAUvM
   
   // Input fields state (set to empty)
-  //const [email, setEmail] = useState('')
+  const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   // Handling form sumbmission and preventing reload
   const submission = async (e) => {
     e.preventDefault()
-    const userData = {username, password}
+    const userData = {username, email, password}
     try{
-      const response = await axios.post('http://localhost:5000/backend/routes/signup', userData)
+      const response = await axios.post('http://localhost:5000/api/users/auth/signup', userData)
       console.log('User created: ', response.data)
     }
     catch(error) {
@@ -33,7 +33,7 @@ const CreateUserPage = () => {
       </div>
 
       <div className = "inputs">
-      {/* <form onSubmit={submission}>
+      <form onSubmit={submission}>
         <div className = "input">
           <label htmlFor = "email"> Email:</label>
           <input 
@@ -42,8 +42,7 @@ const CreateUserPage = () => {
           name="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}/>
-        </div> */}
-        <form onSubmit={submission}>
+        </div>
         <div className = "input">
           <label htmlFor = "username"> Username:</label>
           <input 

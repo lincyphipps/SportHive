@@ -16,3 +16,11 @@ npm i @chakra-ui/icons@v2.1.1
 npm i react-router-dom
 
 npm i react-icons
+
+
+Daniela: 
+If using a mac, disable your control center using port 5000 by going to:
+1) Settings > General > Airdrop & Handoff
+2) Disable Airplay Receiver
+3) Navigate back to terminal and into the backend directory
+4) Run "npm start"

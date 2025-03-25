@@ -5,20 +5,28 @@ const User = require('../models/Users.js');
 
 //signup route - create a new user
 router.post("/signup", async(req, res) => {
-    const {username, password} = req.body;
+    const {username, email, password} = req.body;
+    if (!username || !email || !password) {
+        return res.status(400).json({ message: "All fields are required" });
+      }
     try {
         // check if user already exists
-        let user = await User.findOne({username});
-        if (user) {
-            return res.status(403).json({message: 'User already exists'});
+        let existuser = await User.findOne({username});
+        if (existuser) {
+            return res.status(403).json({message: "User already exists"});
         }
+
+        let existemail = await User.findOne({email});
+        if (existemail){
+            return res.status(403).json({message: "Email already exists"});
+        }
+
         
         // hash the password
-        password = await password.encode("utf-8");
-        password = await bcrypt.hashpw(password, bcrypt.gensalt());
+        const hashpass = await bcrypt.hash(password,10);
 
-        newuser = new User({username, password});
-        await user.save();
+        let newUser = new User({username, email, password: hashpass});
+        await newUser.save();
 
         console.log("User added to the database");
         res.status(200).json({message: "User created successfully"});
@@ -32,7 +40,7 @@ router.post("/signup", async(req, res) => {
 
 // login route - authenticate an existing user
 router.post("/login", async(req, res) => {
-    const {username, password} = req.body;
+    const {username, email, password} = req.body;
 
     try {
         // check if user exists
@@ -41,8 +49,8 @@ router.post("/login", async(req, res) => {
             return res.status(403).json({message: 'User does not exist'});
         }
 
+
         // check if password is correct
-        password = await password.encode("utf-8");
         const match = await bcrypt.compare(password, user.password);
         if (!match) {
             return res.status(403).json({message: 'Wrong password'});

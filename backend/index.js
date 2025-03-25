@@ -11,6 +11,10 @@ app.use(express.json());
 const userRoutes = require("./routes/users");
 app.use("/api/users", userRoutes);
 
+// Import and register user authentication routes
+const userAuthRoutes = require("./routes/userauth");
+app.use("/api/users/auth", userAuthRoutes);
+
 const PORT = process.env.PORT || 5000;
 
 mongoose
