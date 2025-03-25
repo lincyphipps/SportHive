@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const Schema = mongoose.Schema;
 
 // Placeholder post schema that can be changed later
@@ -16,7 +15,8 @@ const postschema = new Schema({
 
   text: {
     type: String, 
-    required: true
+    required: true,
+    maxLength: 1000
   },
 });
 

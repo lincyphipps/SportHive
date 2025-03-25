@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const User = require('../models/Users.js');
+const jwt = require('jsonwebtoken');
+require("dotenv").config();
 
 //signup route - create a new user
 router.post("/signup", async(req, res) => {
@@ -13,17 +15,19 @@ router.post("/signup", async(req, res) => {
             return res.status(403).json({message: 'User already exists'});
         }
         
-        // hash the password
-        password = await password.encode("utf-8");
-        password = await bcrypt.hashpw(password, bcrypt.gensalt());
-
         newuser = new User({username, password});
-        await user.save();
 
+        // hash the password
+        newuser.password = await bcrypt.hash(password, bcrypt.gensalt(10));
+
+        await newuser.save();
         console.log("User added to the database");
         res.status(200).json({message: "User created successfully"});
-    }
 
+        // generate a token for the user
+        const token = jwt.sign(newuser.username, process.env.secret);
+        res.json({token});
+    }
     catch (error) {
         console.error("Error adding user to the database", error);
         res.status(500).json({error: "Unexpected error"});
@@ -42,7 +46,6 @@ router.post("/login", async(req, res) => {
         }
 
         // check if password is correct
-        password = await password.encode("utf-8");
         const match = await bcrypt.compare(password, user.password);
         if (!match) {
             return res.status(403).json({message: 'Wrong password'});
@@ -50,6 +53,10 @@ router.post("/login", async(req, res) => {
 
         console.log("User logged in successfully");
         res.status(200).json({message: "User logged in successfully"});
+
+        // generate a token for the user
+        const token = jwt.sign(newuser.username, process.env.secret);
+        res.json({token});
     }
     catch (error) {
         console.error("Error logging in user", error);
