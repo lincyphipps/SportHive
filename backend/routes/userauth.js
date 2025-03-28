@@ -17,16 +17,11 @@ router.post("/signup", async(req, res) => {
         
         newuser = new User({username, password});
 
-        // hash the password
-        newuser.password = await bcrypt.hash(password, bcrypt.gensalt(10));
-
-        await newuser.save();
         console.log("User added to the database");
-        res.status(200).json({message: "User created successfully"});
 
         // generate a token for the user
-        const token = jwt.sign(newuser.username, process.env.secret);
-        res.json({token});
+        const token = jwt.sign(newUser.username, process.env.secret);
+        res.status(200).json({token});
     }
     catch (error) {
         console.error("Error adding user to the database", error);
@@ -55,7 +50,7 @@ router.post("/login", async(req, res) => {
         res.status(200).json({message: "User logged in successfully"});
 
         // generate a token for the user
-        const token = jwt.sign(newuser.username, process.env.secret);
+        const token = jwt.sign(user.username, process.env.secret);
         res.json({token});
     }
     catch (error) {
