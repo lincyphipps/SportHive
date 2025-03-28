@@ -1,28 +1,22 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/User");
+const User = require("../models/User.js");
 
-// get all users
-router.get("/", async (req, res) => {
-  try {
-    const users = await User.find();
-    res.json(users);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
 
-// register a new user
-router.post("/register", async (req, res) => {
-  const { name, email, password } = req.body;
-  
-  try {
-    const newUser = new User({ name, email, password });
-    await newUser.save();
-    res.status(201).json({ message: "User registered successfully", user: newUser });
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-});
+
+  router.get("/profile", async (req, res) =>{
+    try {
+      const userID = req.user.id;
+      let user = await User.findById(userID);
+      if(!user){
+        return res.status(404).json({message: 'User not found'});
+      }
+      res.json(user);
+    } 
+    catch (error){
+      console.error("Error fetching user profile", error);
+      res.status(500).json({error: "Unexpected error"});
+    }
+  });
 
 module.exports = router;
