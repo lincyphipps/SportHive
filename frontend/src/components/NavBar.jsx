@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button, Container, Flex, HStack, Text, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { FaUserPlus } from "react-icons/fa";
+import { FaUserPlus, FaComments } from "react-icons/fa";
 import { MdOutlineHive } from "react-icons/md";
 
-const NavBar = () => {
+const NavBar = ({ onChatClick }) => {
     const { colorMode, toggleColorMode } = useColorMode();
     
     return (
@@ -43,6 +43,11 @@ const NavBar = () => {
                     <Button onClick={toggleColorMode}>
                         {colorMode === "light" ? "Dark" : "Light"}
                     </Button>
+                    <Link to={"/message"}>
+                        <Button onClick={onChatClick}>
+                            <FaComments />
+                        </Button>
+                    </Link>
                 </HStack>
             </Flex>
         </Container>
