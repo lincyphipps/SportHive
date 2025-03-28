@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const User = require('../models/Users.js');
+const jwt = require('jsonwebtoken');
+require("dotenv").config();
 
 //signup route - create a new user
 router.post("/signup", async(req, res) => {
@@ -21,17 +23,23 @@ router.post("/signup", async(req, res) => {
             return res.status(403).json({message: "Email already exists"});
         }
 
-        
         // hash the password
         const hashpass = await bcrypt.hash(password,10);
 
         let newUser = new User({username, email, password: hashpass});
         await newUser.save();
 
+        // hash the password
+        newuser.password = await bcrypt.hash(password, bcrypt.gensalt(10));
+
+        await newuser.save();
         console.log("User added to the database");
         res.status(200).json({message: "User created successfully"});
-    }
 
+        // generate a token for the user
+        const token = jwt.sign(newuser.username, process.env.secret);
+        res.json({token});
+    }
     catch (error) {
         console.error("Error adding user to the database", error);
         res.status(500).json({error: "Unexpected error"});
@@ -58,6 +66,10 @@ router.post("/login", async(req, res) => {
 
         console.log("User logged in successfully");
         res.status(200).json({message: "User logged in successfully"});
+
+        // generate a token for the user
+        const token = jwt.sign(newuser.username, process.env.secret);
+        res.json({token});
     }
     catch (error) {
         console.error("Error logging in user", error);
