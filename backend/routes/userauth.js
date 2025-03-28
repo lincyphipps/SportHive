@@ -7,15 +7,27 @@ require("dotenv").config();
 
 //signup route - create a new user
 router.post("/signup", async(req, res) => {
-    const {username, password} = req.body;
+    const {username, email, password} = req.body;
+    if (!username || !email || !password) {
+        return res.status(400).json({ message: "All fields are required" });
+      }
     try {
         // check if user already exists
-        let user = await User.findOne({username});
-        if (user) {
-            return res.status(403).json({message: 'User already exists'});
+        let existuser = await User.findOne({username});
+        if (existuser) {
+            return res.status(403).json({message: "User already exists"});
         }
-        
-        newuser = new User({username, password});
+
+        let existemail = await User.findOne({email});
+        if (existemail){
+            return res.status(403).json({message: "Email already exists"});
+        }
+
+        // hash the password
+        const hashpass = await bcrypt.hash(password,10);
+
+        let newUser = new User({username, email, password: hashpass});
+        await newUser.save();
 
         // hash the password
         newuser.password = await bcrypt.hash(password, bcrypt.gensalt(10));
@@ -36,7 +48,7 @@ router.post("/signup", async(req, res) => {
 
 // login route - authenticate an existing user
 router.post("/login", async(req, res) => {
-    const {username, password} = req.body;
+    const {username, email, password} = req.body;
 
     try {
         // check if user exists
@@ -44,6 +56,7 @@ router.post("/login", async(req, res) => {
         if (!user) {
             return res.status(403).json({message: 'User does not exist'});
         }
+
 
         // check if password is correct
         const match = await bcrypt.compare(password, user.password);
