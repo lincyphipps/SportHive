@@ -29,8 +29,6 @@ router.post("/signup", async(req, res) => {
         let newUser = new User({username, email, password: hashpass});
         await newUser.save();
 
-        console.log("User added to the database");
-
         // generate a token for the user
         const token = jwt.sign(newUser.username, process.env.secret);
         res.status(200).json({token});
