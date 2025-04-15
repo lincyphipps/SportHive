@@ -1,75 +1,85 @@
-import React, {useState} from 'react'
-import axios from 'axios'
+import React, { useState } from 'react';
+import axios from 'axios';
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  VStack,
+  Heading,
+  useColorModeValue,
+} from '@chakra-ui/react';
 
 const CreateUserPage = () => {
-  //https://www.youtube.com/watch?v=8QgQKRcAUvM
-  
-  // Input fields state (set to empty)
-  const [email, setEmail] = useState('')
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  // Handling form sumbmission and preventing reload
   const submission = async (e) => {
-    e.preventDefault()
-    const userData = {username, email, password}
-    console.log(userData)
-    try{
-      const response = await axios.post('http://localhost:5000/api/users/auth/signup', userData)
-      localStorage.setItem('token', response.data)
-      console.log('User created')
+    e.preventDefault();
+    const userData = { username, email, password };
+    try {
+      const response = await axios.post(
+        'http://localhost:5000/api/users/auth/signup',
+        userData
+      );
+      console.log('User created: ', response.data);
+    } catch (error) {
+      console.error('Error creating user: ', error);
     }
-    catch(error) {
-      console.error('Error creating user: ', error)
-    }
-  }
+  };
 
+  // Use theme values for light/dark mode:
+  const pageBg = useColorModeValue('gray.100', 'gray.900');
+  const cardBg = useColorModeValue('white', 'gray.700');
 
-
-  // Basic user input for email, username, and password
   return (
-    <div className = 'containter'>
-      <div className = "header">
-        <div className = "text"> Sign Up </div>
-        <div className = "underline"></div>
-      </div>
-
-      <div className = "inputs">
-      <form onSubmit={submission}>
-        <div className = "input">
-          <label htmlFor = "email"> Email:</label>
-          <input 
-          type="email" 
-          id ="email" 
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}/>
-        </div>
-        <div className = "input">
-          <label htmlFor = "username"> Username:</label>
-          <input 
-          type="username" 
-          id ="username" 
-          name="username"
-          value={username}
-          onChange={(e) =>setUsername(e.target.value)}/>
-        </div>
-        <div className = "input">
-          <label htmlFor = "password"> Password:</label>
-          <input 
-          type="password" 
-          id ="password" 
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}/>
-        </div>
-        <button type="submit"> Create Account </button>
+    <Box
+      minH="100vh"
+      bg={pageBg}
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Box bg={cardBg} p={8} borderRadius="md" boxShadow="lg" width="sm">
+        <Heading as="h2" size="lg" mb={6} textAlign="center">
+          Create an Account
+        </Heading>
+        <form onSubmit={submission}>
+          <VStack spacing={4} align="stretch">
+            <FormControl id="email">
+              <FormLabel>Email</FormLabel>
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </FormControl>
+            <FormControl id="username">
+              <FormLabel>Username</FormLabel>
+              <Input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </FormControl>
+            <FormControl id="password">
+              <FormLabel>Password</FormLabel>
+              <Input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </FormControl>
+            <Button type="submit" colorScheme="yellow" width="full">
+              Create Account
+            </Button>
+          </VStack>
         </form>
-      </div>
+      </Box>
+    </Box>
+  );
+};
 
-    </div>
-  )
-
-}
-
-export default CreateUserPage
+export default CreateUserPage;
