@@ -12,6 +12,7 @@ const userRoutes = require("./routes/users");
 app.use("/api/users", userRoutes);
 
 // Import and register user authentication routes
+
 const userAuthRoutes = require("./routes/userauth");
 app.use("/api/users/auth", userAuthRoutes);
 
