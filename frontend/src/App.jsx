@@ -8,6 +8,7 @@ import showMessageBox from "./pages/CreateMessageBoard";
 import setShowMessageBox from "./pages/CreateMessageBoard";
 import HomePage from "./pages/HomePage";
 import NavBar from "./components/NavBar";
+import CreateCommunity from "./pages/CreateCommunity";
 
 function App() {
   const [showMessageBox, setShowMessageBox] = useState(false);
@@ -18,8 +19,8 @@ function App() {
 
       <Routes>
         <Route path ="/" element={<HomePage/>}/>
-        <Route path ='/create' element={<CreateUserPage/>}/>
-        <Route path ='/message' element={<CreateMessageBoard/>}/>
+        <Route path='/create' element={<CreateUserPage />} />
+        <Route path='/create_community' element = {<CreateMessageBoard/>}/>
       </Routes>
       
       {/* Always rendered, but only visible when toggled */}

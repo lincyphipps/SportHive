@@ -3,6 +3,7 @@ import { Button, Container, Flex, HStack, Text, useColorMode, useColorModeValue 
 import { Link } from "react-router-dom";
 import { FaUserPlus, FaComments } from "react-icons/fa";
 import { MdOutlineHive } from "react-icons/md";
+import { TbClipboardPlus } from "react-icons/tb";
 
 const NavBar = ({ onChatClick }) => {
     const { colorMode, toggleColorMode } = useColorMode();
@@ -38,6 +39,11 @@ const NavBar = ({ onChatClick }) => {
                     <Link to={"/create"}>
                         <Button>
                             <FaUserPlus />
+                        </Button>
+                    </Link>
+                    <Link to={'/create_community'}>
+                        <Button>
+                            <TbClipboardPlus />
                         </Button>
                     </Link>
                     <Button onClick={toggleColorMode}>
