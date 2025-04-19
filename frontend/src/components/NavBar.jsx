@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Container, Flex, HStack, Text, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { FaUserPlus, FaComments } from "react-icons/fa";
+import { FaUserPlus, FaComments, FaUserCircle } from "react-icons/fa";
 import { MdOutlineHive } from "react-icons/md";
 import { TbClipboardPlus } from "react-icons/tb";
 
@@ -36,9 +36,9 @@ const NavBar = ({ onChatClick }) => {
 
                 {/* Navigation Buttons */}
                 <HStack spacing={2} alignItems="center">
-                    <Link to={"/create"}>
+                    <Link to={"/login"}>
                         <Button>
-                            <FaUserPlus />
+                            <FaUserCircle />
                         </Button>
                     </Link>
                     <Link to={'/create_community'}>
