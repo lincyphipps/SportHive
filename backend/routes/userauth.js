@@ -68,8 +68,9 @@ router.post("/login", async(req, res) => {
         res.status(200).json({message: "User logged in successfully"});
 
         // generate a token for the user
-        const token = jwt.sign(newuser.username, process.env.secret);
-        res.json({token});
+        const token = jwt.sign({ id: newUser._id, username: newUser.username }, process.env.secret);
+        res.json({ token });
+
     }
     catch (error) {
         console.error("Error logging in user", error);
