@@ -24,7 +24,8 @@ router.post("/writepost", async(req, res) => {
             return res.status(403).json({message: "Post passes 1000 characters limit"});
         }
         
-        newpost = new Post({title, user, text});
+        //newpost = new Post({title, user, text});
+        newpost = new Post({ title, author: user._id, text });
         await newpost.save();
         console.log("Post added to the database");
         res.status(200).json({message: "Post created successfully"});
