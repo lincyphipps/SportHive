@@ -3,11 +3,21 @@ console.log("Mongo URI from .env:", process.env.MONGO_URI);
 
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require("cors");
 
+const cors = require("cors");
+const allowedOrigins = [
+  "http://localhost:5173",                      
+  "https://sport-hive.vercel.app"              
+];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true, 
+  })
+);
 
 const app = express();
-app.use(cors());
 app.use(express.json());
 
 // import and register user routes
