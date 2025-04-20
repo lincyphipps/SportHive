@@ -5,12 +5,12 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
+const app = express();
+
 const allowedOrigins = [
   "http://localhost:5173", // for local dev
   "https://sport-hive.vercel.app" // for live Vercel site
 ];
-
-const app = express();
 
 app.use(
   cors({
