@@ -6,14 +6,20 @@ const mongoose = require("mongoose");
 
 const cors = require("cors");
 const allowedOrigins = [
-  "http://localhost:5173",                      
-  "https://sport-hive.vercel.app"              
+  "http://localhost:5173", // for local dev
+  "https://sport-hive.vercel.app" // for live Vercel site
 ];
 
 app.use(
   cors({
-    origin: allowedOrigins,
-    credentials: true, 
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true
   })
 );
 
