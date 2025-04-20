@@ -3,6 +3,8 @@ console.log("Mongo URI from .env:", process.env.MONGO_URI);
 
 const express = require("express");
 const mongoose = require("mongoose");
+const app = express();
+app.use(express.json());
 
 const cors = require("cors");
 const allowedOrigins = [
@@ -22,9 +24,6 @@ app.use(
     credentials: true
   })
 );
-
-const app = express();
-app.use(express.json());
 
 // import and register user routes
 const userRoutes = require("./routes/users");
