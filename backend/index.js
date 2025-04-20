@@ -20,7 +20,7 @@ const userAuthRoutes = require("./routes/userauth");
 app.use("/api/users/auth", userAuthRoutes);
 
 const postRoutes = require("./routes/posts");
-app.use("/api/posts", postRoutes)
+app.use("/api/writepost", postRoutes);
 
 const PORT = process.env.PORT || 5000;
 

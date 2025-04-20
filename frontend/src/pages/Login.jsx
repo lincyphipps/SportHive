@@ -54,14 +54,6 @@ const Login = ({setIsLoggedIn}) => {
         </Heading>
         <form onSubmit={submission}>
           <VStack spacing={4} align="stretch">
-            <FormControl id="email">
-              <FormLabel>Email</FormLabel>
-              <Input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </FormControl>
             <FormControl id="username">
               <FormLabel>Username</FormLabel>
               <Input

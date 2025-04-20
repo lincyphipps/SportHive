@@ -36,3 +36,4 @@ router.post("/writepost", async(req, res) => {
     }  
 })
 
+module.exports = router;
