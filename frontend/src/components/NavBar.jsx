@@ -41,7 +41,7 @@ const NavBar = ({ onChatClick }) => {
                             <FaUserCircle />
                         </Button>
                     </Link>
-                    <Link to={'/create_community'}>
+                    <Link to={"/create_community"}>
                         <Button>
                             <TbClipboardPlus />
                         </Button>

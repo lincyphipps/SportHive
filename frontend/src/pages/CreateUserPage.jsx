@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { FaUserPlus, FaComments, FaUserCircle, FaUserCheck } from "react-icons/fa";
 import {
   Box,
   Button,
@@ -10,6 +11,7 @@ import {
   Heading,
   useColorModeValue,
 } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 const CreateUserPage = () => {
   const [email, setEmail] = useState('');
@@ -75,6 +77,12 @@ const CreateUserPage = () => {
             <Button type="submit" colorScheme="yellow" width="full">
               Create Account
             </Button>
+            <Link to={'/login'}> 
+                <Button type = "submit" color Scheme ="gray" width="full" gap="2">
+                Log in
+                <FaUserCheck />
+                </Button>  
+            </Link>
           </VStack>
         </form>
       </Box>

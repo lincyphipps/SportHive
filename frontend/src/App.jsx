@@ -21,7 +21,7 @@ function App() {
       <Routes>
         <Route path ="/" element={<HomePage/>}/>
         <Route path='/create' element={<CreateUserPage/>} />
-        <Route path='/create_community' element = {<CreateMessageBoard/>}/>
+        <Route path='/create_community' element = {<CreateMessageBoard/>} />
         <Route path='/login' element ={<Login/>}/>
       </Routes>
       

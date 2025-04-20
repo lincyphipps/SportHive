@@ -36,7 +36,7 @@ const CreateCommunity = () => {
 
         try {
             const response = await axios.post(
-                'http://localhost:5000/api/create_community', //replace with actual URL later on
+                'http://localhost:5000/create_community', //replace with actual URL later on
                 communityData
             );
 

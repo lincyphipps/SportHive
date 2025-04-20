@@ -81,7 +81,7 @@ const Login = () => {
              <Link to={'/create'}> 
                 <Button type = "submit" color Scheme ="gray" width="full" gap="2">
                 Create Account
-                <FaUserPlus></FaUserPlus>
+                <FaUserPlus />
                 </Button>  
             </Link>
           </VStack>
