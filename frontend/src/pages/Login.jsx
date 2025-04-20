@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { FaUserPlus, FaComments, FaUserCircle } from "react-icons/fa";
+import { FaUserPlus} from "react-icons/fa";
 import {
   Box,
   Button,
@@ -13,22 +13,26 @@ import {
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({setIsLoggedIn}) => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const submission = async (e) => {
+ const submission = async (e) => {
     e.preventDefault();
     const userData = { username, email, password };
     try {
-      const response = await axios.post(
+        const response = await axios.post(
         'http://localhost:5000/api/users/auth/login',
         userData
-      );
-      console.log('User Successfully logged in: ', response.data);
+        );
+        console.log('User Successfully logged in: ', response.data);
+        if (response.status === 200){
+            setIsLoggedIn(true);
+        }
+
     } catch (error) {
-      console.error('Error logging user in: ', error);
+        console.error('Error logging user in: ', error);
     }
   };
 
@@ -79,7 +83,7 @@ const Login = () => {
             </Button>
              
              <Link to={'/create'}> 
-                <Button type = "submit" color Scheme ="gray" width="full" gap="2">
+                <Button colorScheme ="gray" width="full" gap="2">
                 Create Account
                 <FaUserPlus />
                 </Button>  

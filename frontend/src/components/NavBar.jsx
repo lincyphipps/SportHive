@@ -5,10 +5,11 @@ import { FaUserPlus, FaComments, FaUserCircle } from "react-icons/fa";
 import { MdOutlineHive } from "react-icons/md";
 import { TbClipboardPlus } from "react-icons/tb";
 
-const NavBar = ({ onChatClick }) => {
+const NavBar = ({ onChatClick, isLoggedIn }) => {
     const { colorMode, toggleColorMode } = useColorMode();
     
     return (
+
         <Container maxW="1140px" px={4} bg={useColorModeValue("gray.200", "gray.500")}>
             <Flex
                 h={16}
@@ -36,24 +37,30 @@ const NavBar = ({ onChatClick }) => {
 
                 {/* Navigation Buttons */}
                 <HStack spacing={2} alignItems="center">
+                    {isLoggedIn && (
+                        <>
+                        <Link to={"/create_community"}>
+                        <Button>
+                            <TbClipboardPlus />
+                        </Button>
+                        </Link>
+                        <Link to={"/message"}>
+                        <Button onClick={onChatClick}>
+                            <FaComments />
+                        </Button>
+                        </Link>
+                        </>
+                    )}
                     <Link to={"/login"}>
                         <Button>
                             <FaUserCircle />
                         </Button>
                     </Link>
-                    <Link to={"/create_community"}>
-                        <Button>
-                            <TbClipboardPlus />
-                        </Button>
-                    </Link>
+                    
                     <Button onClick={toggleColorMode}>
                         {colorMode === "light" ? "Dark" : "Light"}
                     </Button>
-                    <Link to={"/message"}>
-                        <Button onClick={onChatClick}>
-                            <FaComments />
-                        </Button>
-                    </Link>
+                    
                 </HStack>
             </Flex>
         </Container>

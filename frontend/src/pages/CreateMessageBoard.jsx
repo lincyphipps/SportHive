@@ -36,7 +36,7 @@ const CreateMessageBoard = ({ showMessageBox, setShowMessageBox }) => {
     }
   };
 
-  if (!showMessageBox) return null; // ✅ don't render unless it's toggled on
+  if (!showMessageBox) return null; //don't render unless it's toggled on
 
   return (
     <div style={{

@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import {
-    Box,
-    Button,
-    FormControl,
-    FormLabel,
-    Input,
-    Select,
-    VStack,
-    Heading,
-    useColorModeValue,
-    useToast,
-  } from '@chakra-ui/react';
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  VStack,
+  Heading,
+  useColorModeValue,
+} from '@chakra-ui/react';
 
 const CreateCommunity = () => {
     const [communityData, setCommunityData] = useState({

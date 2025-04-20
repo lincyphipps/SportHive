@@ -13,16 +13,18 @@ import Login from "./pages/Login";
 
 function App() {
   const [showMessageBox, setShowMessageBox] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <Box minH = {"100vh"}>
-      <NavBar onChatClick={() => setShowMessageBox(!showMessageBox)} />
-
+      <NavBar onChatClick={() => setShowMessageBox(!showMessageBox)} 
+        isLoggedIn={isLoggedIn}/>
+      
       <Routes>
         <Route path ="/" element={<HomePage/>}/>
         <Route path='/create' element={<CreateUserPage/>} />
-        <Route path='/create_community' element = {<CreateMessageBoard/>} />
-        <Route path='/login' element ={<Login/>}/>
+        <Route path='/create_community' element = {<CreateCommunity isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path='/login' element ={<Login setIsLoggedIn={setIsLoggedIn} />}/>
       </Routes>
       
       {/* Always rendered, but only visible when toggled */}
@@ -30,6 +32,7 @@ function App() {
         showMessageBox={showMessageBox}
         setShowMessageBox={setShowMessageBox}
       />
+      
     </Box>
   );
 }
