@@ -1,14 +1,15 @@
 import React from 'react';
 import { Button, Container, Flex, HStack, Text, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { FaUserPlus } from "react-icons/fa";
+import { FaUserPlus, FaComments, FaUserCircle } from "react-icons/fa";
 import { MdOutlineHive } from "react-icons/md";
 import { TbClipboardPlus } from "react-icons/tb";
 
-const NavBar = () => {
+const NavBar = ({ onChatClick, isLoggedIn }) => {
     const { colorMode, toggleColorMode } = useColorMode();
     
     return (
+
         <Container maxW="1140px" px={4} bg={useColorModeValue("gray.200", "gray.500")}>
             <Flex
                 h={16}
@@ -36,19 +37,30 @@ const NavBar = () => {
 
                 {/* Navigation Buttons */}
                 <HStack spacing={2} alignItems="center">
-                    <Link to={"/create"}>
-                        <Button>
-                            <FaUserPlus />
-                        </Button>
-                    </Link>
-                    <Link to={'/create_community'}>
+                    {isLoggedIn && (
+                        <>
+                        <Link to={"/create_community"}>
                         <Button>
                             <TbClipboardPlus />
                         </Button>
+                        </Link>
+                        <Link to={"/message"}>
+                        <Button onClick={onChatClick}>
+                            <FaComments />
+                        </Button>
+                        </Link>
+                        </>
+                    )}
+                    <Link to={"/login"}>
+                        <Button>
+                            <FaUserCircle />
+                        </Button>
                     </Link>
+                    
                     <Button onClick={toggleColorMode}>
                         {colorMode === "light" ? "Dark" : "Light"}
                     </Button>
+                    
                 </HStack>
             </Flex>
         </Container>

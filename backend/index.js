@@ -1,7 +1,10 @@
+require("dotenv").config();
+console.log("Mongo URI from .env:", process.env.MONGO_URI);
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-require("dotenv").config();
+
 
 const app = express();
 app.use(cors());
@@ -12,8 +15,12 @@ const userRoutes = require("./routes/users");
 app.use("/api/users", userRoutes);
 
 // Import and register user authentication routes
+
 const userAuthRoutes = require("./routes/userauth");
 app.use("/api/users/auth", userAuthRoutes);
+
+const postRoutes = require("./routes/posts");
+app.use("/api/writepost", postRoutes);
 
 const PORT = process.env.PORT || 5000;
 

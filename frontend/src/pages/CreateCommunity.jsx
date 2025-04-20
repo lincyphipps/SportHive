@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import {
-    Box,
-    Button,
-    FormControl,
-    FormLabel,
-    Input,
-    Select,
-    VStack,
-    Heading,
-    useColorModeValue,
-    useToast,
-  } from '@chakra-ui/react';
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  VStack,
+  Heading,
+  useColorModeValue,
+} from '@chakra-ui/react';
 
 const CreateCommunity = () => {
     const [communityData, setCommunityData] = useState({
@@ -36,7 +34,7 @@ const CreateCommunity = () => {
 
         try {
             const response = await axios.post(
-                'http://localhost:5000/api/create_community', //replace with actual URL later on
+                'http://localhost:5000/create_community', //replace with actual URL later on
                 communityData
             );
 

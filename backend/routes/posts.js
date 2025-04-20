@@ -14,7 +14,7 @@ router.post("/writepost", async(req, res) => {
         return res.status(401).json({message: 'No token'});
         }
         const decoded = jwt.verify(token, process.env.secret)
-        const user = await User.findOne({decoded})
+        const user = await User.findById(decoded.id);
         if (!user) {
             return res.status(403).json({message: 'User does not exist'});
         }
@@ -37,3 +37,4 @@ router.post("/writepost", async(req, res) => {
     }  
 })
 
+module.exports = router;

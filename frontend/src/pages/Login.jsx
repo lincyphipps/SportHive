@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { FaUserPlus, FaComments, FaUserCircle, FaUserCheck } from "react-icons/fa";
+import { FaUserPlus} from "react-icons/fa";
 import {
   Box,
   Button,
@@ -13,22 +13,26 @@ import {
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
-const CreateUserPage = () => {
+const Login = ({setIsLoggedIn}) => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const submission = async (e) => {
+ const submission = async (e) => {
     e.preventDefault();
     const userData = { username, email, password };
     try {
-      const response = await axios.post(
-        'http://localhost:5000/api/users/auth/signup',
+        const response = await axios.post(
+        'http://localhost:5000/api/users/auth/login',
         userData
-      );
-      console.log('User created: ', response.data);
+        );
+        console.log('User Successfully logged in: ', response.data);
+        if (response.status === 200){
+            setIsLoggedIn(true);
+        }
+
     } catch (error) {
-      console.error('Error creating user: ', error);
+        console.error('Error logging user in: ', error);
     }
   };
 
@@ -46,18 +50,10 @@ const CreateUserPage = () => {
     >
       <Box bg={cardBg} p={8} borderRadius="md" boxShadow="lg" width="sm">
         <Heading as="h2" size="lg" mb={6} textAlign="center">
-          Create an Account
+          Log In
         </Heading>
         <form onSubmit={submission}>
           <VStack spacing={4} align="stretch">
-            <FormControl id="email">
-              <FormLabel>Email</FormLabel>
-              <Input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </FormControl>
             <FormControl id="username">
               <FormLabel>Username</FormLabel>
               <Input
@@ -75,12 +71,13 @@ const CreateUserPage = () => {
               />
             </FormControl>
             <Button type="submit" colorScheme="yellow" width="full">
-              Create Account
+              Log In
             </Button>
-            <Link to={'/login'}> 
-                <Button type = "submit" color Scheme ="gray" width="full" gap="2">
-                Log in
-                <FaUserCheck />
+             
+             <Link to={'/create'}> 
+                <Button colorScheme ="gray" width="full" gap="2">
+                Create Account
+                <FaUserPlus />
                 </Button>  
             </Link>
           </VStack>
@@ -90,4 +87,4 @@ const CreateUserPage = () => {
   );
 };
 
-export default CreateUserPage;
+export default Login;
