@@ -5,9 +5,20 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
-
 const app = express();
-app.use(cors());
+
+const allowedOrigins = [
+  "http://localhost:5173", // for local dev
+  "https://sport-hive.vercel.app" // for live Vercel site
+];
+
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 // import and register user routes
