@@ -22,10 +22,22 @@ const CreateUserPage = () => {
     e.preventDefault();
     const userData = { username, email, password };
     try {
+      const BASE_URL = import.meta.env.VITE_API_URL;
+
       const response = await axios.post(
-        'http://localhost:5000/api/users/auth/signup',
-        userData
+        `${BASE_URL}/api/users/auth/signup`, // 👈 full endpoint path
+        {
+          username,
+          email,
+          password
+        },
+        {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
       );
+            
       console.log('User created: ', response.data);
     } catch (error) {
       console.error('Error creating user: ', error);

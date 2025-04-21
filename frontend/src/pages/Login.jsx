@@ -31,7 +31,6 @@ const Login = ({setIsLoggedIn}) => {
           localStorage.setItem("token", response.data.token);
           setIsLoggedIn(true);
         }
-
     } catch (error) {
         console.error('Error logging user in: ', error);
     }

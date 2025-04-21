@@ -34,18 +34,20 @@ const CreateCommunity = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post(
-                'http://localhost:5000/create_community', //replace with actual URL later on
-                communityData
-            );
+          const BASE_URL = import.meta.env.VITE_API_URL;
 
-            toast({
-                title: "Community Created",
-                description: "Your community has been successfully created.",
-                status: "success",
-                duration: 5000,
-                isClosable: true,
-            });
+          const response = await axios.post(
+            `${BASE_URL}/api/create_community`,
+            communityData
+          );          
+
+          toast({
+              title: "Community Created",
+              description: "Your community has been successfully created.",
+              status: "success",
+              duration: 5000,
+              isClosable: true,
+          });
         } catch (error) {
             console.error("Community not created successfully", error);
             toast({

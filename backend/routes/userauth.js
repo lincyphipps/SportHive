@@ -29,10 +29,14 @@ router.post("/signup", async(req, res) => {
         const newUser = new User({username, email, password: hashpass});
         await newUser.save();
         // hash the password
-        newUser.password = await bcrypt.hash(password, bcrypt.gensalt(10));
+        //newUser.password = await bcrypt.hash(password, bcrypt.genSalt(10));
 
         // generate a token for the user
-        const token = jwt.sign(newUser.username, newUser.password);
+        const token = jwt.sign(
+            { username: newUser.username },
+            process.env.SECRET,
+            { expiresIn: "1h" }
+          );
         return res.status(200).json({message: "User created successfully", token});
     }
     catch (error) {
