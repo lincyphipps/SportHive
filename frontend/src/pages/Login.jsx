@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-const BASE_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = 'http://localhost:5173';
+//const BASE_URL = import.meta.env.VITE_API_URL;
+
 import { FaUserPlus} from "react-icons/fa";
 import {
   Box,
@@ -11,14 +13,15 @@ import {
   VStack,
   Heading,
   useColorModeValue,
+  useToast
 } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = ({setIsLoggedIn}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const toast = useToast();
 
  const submission = async (e) => {
     e.preventDefault();
@@ -27,7 +30,8 @@ const Login = ({setIsLoggedIn}) => {
       const response = await axios.post(
         `${BASE_URL}/api/users/auth/login`,
         { username, password },
-        { headers: { "Content-Type": "application/json" } }
+        { headers: { "Content-Type": "application/json" }}, 
+        { withCredentials: true}
       );
       console.log('User Successfully logged in: ', response.data);
       if (response.status === 200){
@@ -37,6 +41,13 @@ const Login = ({setIsLoggedIn}) => {
 
     } catch (error) {
         console.error('Error logging user in: ', error);
+        toast({
+          title: "Error",
+          description: "There was an issue logging in",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+      });
     }
   };
 

@@ -11,6 +11,10 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { useToast, Select } from "@chakra-ui/react";
+const BASE_URL = import.meta.env.VITE_API_URL;
+//const BASE_URL = 'http://localhost:5173';
+
+
 
 const CreateCommunity = () => {
     const [communityData, setCommunityData] = useState({
@@ -32,13 +36,16 @@ const CreateCommunity = () => {
     //handle submisions which sends community data to backend
     const handleSubmission = async (e) => {
         e.preventDefault();
-
         try {
-          const BASE_URL = import.meta.env.VITE_API_URL;
-
+          const payload = {
+            ...communityData,
+            max_size: parseInt(communityData.max_size, 10), 
+            location: parseInt(communityData.location, 10)
+          };
           const response = await axios.post(
-            `${BASE_URL}/api/create_community`,
-            communityData
+            `${BASE_URL}/api/communities/create_community`,
+            payload,
+            {headers:{"Content-Type": "application/json"}}
           );          
 
           toast({

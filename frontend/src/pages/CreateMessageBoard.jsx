@@ -1,4 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import axios from 'axios';
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  VStack,
+  Heading,
+  useColorModeValue,
+} from '@chakra-ui/react';
+import { useToast, Select } from "@chakra-ui/react";
+//const BASE_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = 'http://localhost:5173';
 
 const CreateMessageBoard = ({ showMessageBox, setShowMessageBox }) => {
   const [messageText, setMessageText] = useState("");
@@ -9,7 +23,7 @@ const CreateMessageBoard = ({ showMessageBox, setShowMessageBox }) => {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch("/posts/writepost", {
+      const response = await fetch("/api/posts/writepost", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
