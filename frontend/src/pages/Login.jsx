@@ -28,7 +28,8 @@ const Login = ({setIsLoggedIn}) => {
         );
         console.log('User Successfully logged in: ', response.data);
         if (response.status === 200){
-            setIsLoggedIn(true);
+          localStorage.setItem("token", response.data.token);
+          setIsLoggedIn(true);
         }
 
     } catch (error) {

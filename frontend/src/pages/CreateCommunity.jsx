@@ -10,6 +10,7 @@ import {
   Heading,
   useColorModeValue,
 } from '@chakra-ui/react';
+import { useToast, Select } from "@chakra-ui/react";
 
 const CreateCommunity = () => {
     const [communityData, setCommunityData] = useState({
