@@ -11,8 +11,9 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { useToast, Select } from "@chakra-ui/react";
-const BASE_URL = import.meta.env.VITE_API_URL;
-//const BASE_URL = 'http://localhost:5173';
+import { useNavigate } from 'react-router-dom';
+//const BASE_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = 'http://localhost:5173';
 
 
 
@@ -24,7 +25,7 @@ const CreateCommunity = () => {
         max_size: "", //max number of possible members
         location: "", //not sure how best to implement this, maybe we can use zip codes?
     });
-
+    const navigate = useNavigate();
     const toast = useToast();
     //update state based on input
     const handleChange = (e) => {
@@ -38,10 +39,13 @@ const CreateCommunity = () => {
         e.preventDefault();
         try {
           const payload = {
-            ...communityData,
-            max_size: parseInt(communityData.max_size, 10), 
-            location: parseInt(communityData.location, 10)
+            sport: communityData.sport,
+            team: communityData.team_athlete,
+            privacy: communityData.privacy,
+            numMembers: parseInt(communityData.max_size, 10),
+            zip: parseInt(communityData.location, 10),
           };
+      
           const response = await axios.post(
             `${BASE_URL}/api/communities/create_community`,
             payload,
@@ -54,6 +58,14 @@ const CreateCommunity = () => {
               status: "success",
               duration: 5000,
               isClosable: true,
+          });
+          navigate('/');
+          setCommunityData({
+            sport:"", //name of sport the community will be created for
+            team_athlete: "", //team or individual athlete the community will follow (should be an n/a option if the community is to be based on the sport as a whole)
+            privacy: "public", // options: public, invite, password (don't necessarily have to implement all of these but just some ideas on how)
+            max_size: "", //max number of possible members
+            location: "",
           });
         } catch (error) {
             console.error("Community not created successfully", error);
