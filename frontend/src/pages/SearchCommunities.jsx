@@ -45,6 +45,36 @@ const SearchCommunities = () => {
             });
         }
     };
+    const handleJoin = async (communityId) => {
+        try {
+            const user = JSON.parse(localStorage.getItem("user"));
+            console.log(user._id); 
+        
+            await axios.post(`${BASE_URL}/api/communities/join_community/${communityId}`,
+              {userId: user._id},
+              {headers: {"Content-Type": "application/json"}}
+            );
+        
+            toast({
+              title: "Joined!",
+              description: "You have successfully joined the community.",
+              status: "success",
+              duration: 3000,
+              isClosable: true,
+            });
+        
+          } catch (error) {
+            console.error("Join failed", error);
+            toast({
+              title: "Join failed.",
+              description: "Something went wrong.",
+              status: "error",
+              duration: 3000,
+              isClosable: true,
+            });
+          }
+        
+    };
 
     //light and dark mode
     const pageBg = useColorModeValue('gray.100', 'gray.900'); 
@@ -86,6 +116,9 @@ return (
               <Text><strong>Privacy:</strong> {community.privacy}</Text>
               <Text><strong>Zip Code:</strong> {community.zip}</Text>
               <Text><strong>Members:</strong> {community.numMembers || 0}</Text>
+              <Button colorScheme="blue" size="sm" mt={2} onClick={()=>handleJoin(community._id)}>
+                Join
+              </Button>
             </Box>
           ))}
         </Box>

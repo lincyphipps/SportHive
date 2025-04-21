@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require('express');
 const router = express.Router();
 const Community = require('../models/Communities.js');
+const User = require('../models/Users')
 
 //signup route - create a new community
 router.post("/create_community", async(req, res) => {
@@ -60,5 +61,22 @@ router.get("/join_community", async(req, res) => {
         res.status(500).json({message: "Unexpected error"});
     }  
 })
+router.post("/join_community/:communityId", async(req, res) => {
+    const userId = req.body.userId;
+    const communityId = req.params.communityId;
+    try{
+        const user = await User.findById(userId);
+        if (!user) return res.status(404).json({ message: "User not found."});
 
+        if (!user.joinedCommunities.includes(communityId)){
+            user.joinedCommunities.push(communityId);
+            await user.save();
+        }
+        res.status(200).json({ message: "Joined community successfully"});
+    }
+    catch (error){
+        console.error("Join error: ", error);
+        res.status(500).json({ message: "Failed to join community" });
+    }
+})
 module.exports = router;

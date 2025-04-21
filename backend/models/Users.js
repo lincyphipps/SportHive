@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema ({
     type: String,
     required: true,
   },
-  joinedCommunities:[{type: mongoose.Schema.Types.ObjectID, ref: "Community"}],
+  joinedCommunities:[{type: mongoose.Schema.Types.ObjectID, ref: "Communities"}],
 
   userPosts: [{type: mongoose.Schema.Types.ObjectID, ref: "Posts"}]
 });

@@ -37,7 +37,7 @@ router.post("/signup", async(req, res) => {
             process.env.SECRET,
             { expiresIn: "1h" }
           );
-        return res.status(200).json({message: "User created successfully", token});
+        return res.status(200).json({message: "User created successfully", token, user:{_id: newUser._id, username: newUser.username, email: newUser.email}});
     }
     catch (error) {
         console.error("Error adding user to the database", error);
@@ -63,11 +63,10 @@ router.post("/login", async(req, res) => {
             return res.status(403).json({message: 'Wrong password'});
         }
 
-        console.log("User logged in successfully");
-
         // generate a token for the user
         const token = jwt.sign({username: user.username}, process.env.SECRET);
-        res.json({ token });
+        const userData = {_id: user._id, username: user.username, email: user.email}
+        res.json({ message: "User logged in successfully", token, user: userData });
 
     }
     catch (error) {

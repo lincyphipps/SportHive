@@ -30,12 +30,13 @@ const Login = ({setIsLoggedIn}) => {
       const response = await axios.post(
         `${BASE_URL}/api/users/auth/login`,
         { username, password },
-        { headers: { "Content-Type": "application/json" }}, 
-        { withCredentials: true}
+        { headers: { "Content-Type": "application/json" }, withCredentials: true}
       );
       console.log('User Successfully logged in: ', response.data);
       if (response.status === 200){
           setIsLoggedIn(true);
+          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("user", JSON.stringify(response.data.user))
           navigate('/');
       }
 
