@@ -18,7 +18,10 @@ const userSchema = new mongoose.Schema ({
   password: {
     type: String,
     required: true,
-  }
+  },
+  joinedCommunities:[{type: mongoose.Schema.Types.ObjectID, ref: "Community"}],
+
+  userPosts: [{type: mongoose.Schema.Types.ObjectID, ref: "Posts"}]
 });
 
 module.exports = mongoose.model("Users", userSchema);

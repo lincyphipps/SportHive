@@ -14,7 +14,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ['http://localhost:5000', 'https://sport-hive.vercel.app'],
+    origin: ['http://localhost:5173', 'https://sport-hive.vercel.app'],
     methods: ['GET', 'POST'],
     credentials: true,
   })

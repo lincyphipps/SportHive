@@ -11,7 +11,9 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { useToast, Select } from "@chakra-ui/react";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaClipboardList } from "react-icons/fa";
+
 //const BASE_URL = import.meta.env.VITE_API_URL;
 const BASE_URL = 'http://localhost:5173';
 
@@ -154,6 +156,13 @@ const CreateCommunity = () => {
               <Button type="submit" colorScheme="yellow" width="full">
                 Create Community
               </Button>
+
+              <Link to={"/join_community"}> 
+                <Button colorScheme ="gray" width="full" gap="2">
+                Join Community
+                <FaClipboardList />
+                </Button>  
+            </Link>
             </VStack>
           </form>
         </Box>
