@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+const BASE_URL = import.meta.env.VITE_API_URL;
 import { FaUserPlus} from "react-icons/fa";
 import {
   Box,
@@ -12,26 +13,26 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Login = ({setIsLoggedIn}) => {
-  const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
  const submission = async (e) => {
     e.preventDefault();
-    const userData = { username, email, password };
     try {
-      const BASE_URL = import.meta.env.VITE_API_URL;
 
       const response = await axios.post(
         `${BASE_URL}/api/users/auth/login`,
-        { username, email, password },
+        { username, password },
         { headers: { "Content-Type": "application/json" } }
       );
       console.log('User Successfully logged in: ', response.data);
       if (response.status === 200){
           setIsLoggedIn(true);
+          navigate('/');
       }
 
     } catch (error) {

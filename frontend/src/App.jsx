@@ -10,6 +10,7 @@ import HomePage from "./pages/HomePage";
 import NavBar from "./components/NavBar";
 import CreateCommunity from "./pages/CreateCommunity";
 import Login from "./pages/Login";
+import Profile from "./pages/Profile";
 
 function App() {
   const [showMessageBox, setShowMessageBox] = useState(false);
@@ -25,6 +26,8 @@ function App() {
         <Route path='/create' element={<CreateUserPage/>} />
         <Route path='/create_community' element = {<CreateCommunity isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
         <Route path='/login' element ={<Login setIsLoggedIn={setIsLoggedIn} />}/>
+        <Route path='/profile' element ={<Profile />}/>
+
       </Routes>
       
       {/* Always rendered, but only visible when toggled */}
