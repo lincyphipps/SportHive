@@ -22,18 +22,15 @@ const Login = ({setIsLoggedIn}) => {
     e.preventDefault();
     const userData = { username, email, password };
     try {
-      const BASE_URL = import.meta.env.VITE_API_URL;
-
-      const response = await axios.post(
-        `${BASE_URL}/api/users/auth/login`,
-        { username, email, password },
-        { headers: { "Content-Type": "application/json" } }
-      );
-      console.log('User Successfully logged in: ', response.data);
-      if (response.status === 200){
+        const response = await axios.post(
+        'http://localhost:5000/api/users/auth/login',
+        userData
+        );
+        console.log('User Successfully logged in: ', response.data);
+        if (response.status === 200){
+          localStorage.setItem("token", response.data.token);
           setIsLoggedIn(true);
-      }
-
+        }
     } catch (error) {
         console.error('Error logging user in: ', error);
     }
