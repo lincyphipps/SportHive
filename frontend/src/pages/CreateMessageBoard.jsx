@@ -20,21 +20,16 @@ const CreateMessageBoard = ({ showMessageBox, setShowMessageBox }) => {
   const handlePost = async () => {
     if (messageText.trim().length === 0) return;
     
-    const BASE_URL = import.meta.env.VITE_API_URL;
     const token = localStorage.getItem("token");
-    console.log("Token being sent:", token);
+    //console.log("Token being sent:", token);
 
     try {
-      const response = await fetch(`${BASE_URL}/api/writepost/writepost`, {
+      const response = await fetch(`${BASE_URL}/api/posts/writepost`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          title: "Untitled", 
-          text: messageText
-        })
+          "Authorization": `Bearer ${token}`},
+        body: JSON.stringify({title: "Untitled", text: messageText })
       });  
 
       const data = await response.json();
