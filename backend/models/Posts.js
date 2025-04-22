@@ -18,6 +18,6 @@ const postschema = new Schema({
     required: true,
     maxLength: 1000
   },
-});
+}, { timestamps: true } );
 
 module.exports = mongoose.model("Posts", postschema);
