@@ -30,10 +30,14 @@ npm install --save-dev vite
 ```
 ### 4️⃣ Run the App
 In the **backend** terminal:
+```
 npm start
+```
 
 In the **frontend** terminal:
+```
 npm run dev
+```
 
 ## 🔐 Environment Variables
 Create a .env file in the backend/ directory with the following content:
