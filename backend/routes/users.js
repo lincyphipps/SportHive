@@ -32,4 +32,17 @@ router.get("/profile", authenticateToken, async (req, res) => {
   }
 });
 
+router.put('/profile/bio', authenticateToken, async (req, res) => {
+    try {
+      const user = await User.findByIdAndUpdate(
+        req.user.id,
+        { bio: req.body.bio },
+        { new: true }
+      );
+      res.json(user);
+    } catch (err) {
+      res.status(500).json({ message: "Error updating bio" });
+    }
+});
+
 module.exports = router;
