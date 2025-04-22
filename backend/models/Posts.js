@@ -11,7 +11,6 @@ const postschema = new Schema(
     required: true
 
   },
-
   text: { type: String, required: true, maxLength: 1000},
 },
   {timestamps: true}

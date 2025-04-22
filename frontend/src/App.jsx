@@ -28,16 +28,9 @@ function App() {
         <Route path='/create_community' element = {<CreateCommunity isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
         <Route path ="/join_community" element={<SearchCommunities/>}/>
         <Route path='/login' element ={<Login setIsLoggedIn={setIsLoggedIn} />}/>
+        <Route path='/message' element ={<CreateMessageBoard showMessageBox={showMessageBox} setShowMessageBox={setShowMessageBox} />}/>
         <Route path='/profile' element ={<Profile />}/>
-
       </Routes>
-      
-      {/* Always rendered, but only visible when toggled */}
-      <CreateMessageBoard
-        showMessageBox={showMessageBox}
-        setShowMessageBox={setShowMessageBox}
-      />
-      
     </Box>
   );
 }
