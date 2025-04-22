@@ -25,11 +25,8 @@ const Login = ({setIsLoggedIn}) => {
 
  const submission = async (e) => {
     e.preventDefault();
+    //const token = localStorage.setItem("token", response.data.token)
     try {
-        if (response.status === 200){
-          localStorage.setItem("token", response.data.token);
-          setIsLoggedIn(true);
-        }
       const response = await axios.post(
         `${BASE_URL}/api/users/auth/login`,
         { username, password },
