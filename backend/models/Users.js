@@ -19,9 +19,9 @@ const userSchema = new mongoose.Schema ({
     type: String,
     required: true,
   },
-  joinedCommunities:[{type: mongoose.Schema.Types.ObjectID, ref: "Communities"}],
+  communities:[{type: mongoose.Schema.Types.ObjectID, ref: "Communities", default: []}],
 
-  userPosts: [{type: mongoose.Schema.Types.ObjectID, ref: "Posts"}]
+  posts: [{type: mongoose.Schema.Types.ObjectID, ref: "Posts", default: []}]
 });
 
 module.exports = mongoose.model("Users", userSchema);

@@ -35,6 +35,16 @@ router.post("/writepost", async(req, res) => {
         console.error("Error adding post to the database", error);
         res.status(500).json({error: "Unexpected error"});
     }  
-})
+});
+
+router.get("/getposts", async (req, res) => {
+    try {
+        const posts = await Post.find().populate("author", "username").sort({createdAt: -1});
+        res.status(200).json(posts);
+    }catch(error){
+        console.error("Error fetching posts: ", error);
+        res.status(500).json({message: "Failed to fetch posts"});
+    }
+});
 
 module.exports = router;
