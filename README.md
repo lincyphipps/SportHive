@@ -1,7 +1,5 @@
 <p align="center">
-  <a href="https://github.com/lincyphipps/SportHive">
-    <img src="https://github.com/lincyphipps/SportHive/blob/main/Screenshot%202025-04-22%20155955.png?raw=true" alt="SportHive Logo" width="180"/>
-  </a>
+  <img src="[https://raw.githubusercontent.com/your-username/SportHive/main/Screenshot%202025-04-22%20155955.png](https://github.com/lincyphipps/SportHive/blob/main/frontend/src/assets/Screenshot%202025-04-22%20155955.png)" alt="SportHive Logo" width="180"/>
 </p>
 
 **SportHive** is a full-stack MERN (MongoDB, Express.js, React, Node.js) application built to help users discover and join local sports games and communities.
