@@ -13,14 +13,14 @@ const CreateUserPage = () => {
   const submission = async (e) => {
     e.preventDefault()
     const userData = {username, email, password}
-    console.log(userData)
+    console.log("Form submitted...")
     try{
       const response = await axios.post('http://localhost:5000/api/users/auth/signup', userData)
-      localStorage.setItem('token', response.data)
-      console.log('User created')
+      localStorage.setItem('token', response.data.token)
+      alert('User created')
     }
     catch(error) {
-      console.error('Error creating user: ', error)
+      console.error('Error creating user: ', error.response.data)
     }
   }
 

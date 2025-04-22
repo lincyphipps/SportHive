@@ -15,6 +15,10 @@ app.use("/api/users", userRoutes);
 const userAuthRoutes = require("./routes/userauth");
 app.use("/api/users/auth", userAuthRoutes);
 
+// Import and register post routes
+const postRoutes = require("./routes/posts");
+app.use("/api/posts", postRoutes);
+
 const PORT = process.env.PORT || 5000;
 
 mongoose
