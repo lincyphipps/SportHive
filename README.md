@@ -54,17 +54,17 @@ JWT_SECRET=your_jwt_secret
 - Deployment: Render (backend) & Vercel (frontend) [in progress]
 
 ## 📁 Folder Structure
-SportHive/
-├── backend/
-│   ├── models/
-│   ├── routes/
-│   ├── controllers/
-│   └── server.js
-│
-├── frontend/
-│   ├── src/
-│   ├── public/
-│   └── vite.config.js
+SportHive/  
+├── backend/  
+│   ├── models/  
+│   ├── routes/  
+│   ├── controllers/  
+│   └── server.js  
+│  
+├── frontend/  
+│   ├── src/  
+│   ├── public/  
+│   └── vite.config.js  
 
 ## 👥 Contributors
 - Lincy Phipps (Product Manager)
