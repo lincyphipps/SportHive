@@ -1,9 +1,9 @@
+require("dotenv").config();
 const express = require('express');
 const router = express.Router();
 const Post = require('../models/Posts.js');
 const User = require('../models/Users.js');
 const jwt = require('jsonwebtoken');
-require("dotenv").config();
 
 router.post("/writepost", async(req, res) => {
     const {title, text} = req.body;
@@ -27,6 +27,8 @@ router.post("/writepost", async(req, res) => {
         //newpost = new Post({title, user, text});
         newpost = new Post({ title, author: user._id, text });
         await newpost.save();
+        user.posts.push(newpost._id);
+        await user.save();
         console.log("Post added to the database");
         res.status(200).json({message: "Post created successfully"});
 
@@ -39,12 +41,21 @@ router.post("/writepost", async(req, res) => {
 
 router.get("/getposts", async (req, res) => {
     try {
-        const posts = await Post.find().populate("author", "username").sort({createdAt: -1});
-        res.status(200).json(posts);
-    }catch(error){
-        console.error("Error fetching posts: ", error);
-        res.status(500).json({message: "Failed to fetch posts"});
+        const authHeader = req.header('Authorization');
+    
+        if (!authHeader) {
+          return res.status(401).json({ message: 'No token provided' });
+        }
+      const token = authHeader.replace('Bearer ', '');
+      const decoded = jwt.verify(token, process.env.SECRET);
+      console.log("Decoded token: ", decoded);
+  
+      const posts = await Post.find().populate("author", "username").sort({ createdAt: -1 });
+      res.status(200).json(posts);
+    } catch (error) {
+      console.error("Error fetching posts: ", error);
+      res.status(500).json({ message: "Failed to fetch posts" });
     }
-});
+  });
 
 module.exports = router;
