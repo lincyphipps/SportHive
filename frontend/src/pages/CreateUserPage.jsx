@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+const BASE_URL = import.meta.env.VITE_API_URL;
 import { FaUserPlus, FaComments, FaUserCircle, FaUserCheck } from "react-icons/fa";
 import {
   Box,
@@ -12,20 +13,22 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 const CreateUserPage = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  
 
   const submission = async (e) => {
     e.preventDefault();
-    const userData = { username, email, password };
     try {
-      const BASE_URL = import.meta.env.VITE_API_URL;
 
       const response = await axios.post(
-        `${BASE_URL}/api/users/auth/signup`, // 👈 full endpoint path
+        `${BASE_URL}/api/users/auth/signup`, // full endpoint path
         {
           username,
           email,
@@ -39,6 +42,7 @@ const CreateUserPage = () => {
       );
             
       console.log('User created: ', response.data);
+      navigate('/');
     } catch (error) {
       console.error('Error creating user: ', error);
     }

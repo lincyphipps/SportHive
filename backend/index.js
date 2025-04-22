@@ -7,10 +7,10 @@ const cors = require("cors");
 
 const app = express();
 
-const allowedOrigins = [
-  "http://localhost:5173", // for local dev
-  "https://sport-hive.vercel.app" // for live Vercel site
-];
+// const allowedOrigins = [
+//   "http://localhost:5173", // for local dev
+//   "https://sport-hive.vercel.app" // for live Vercel site
+// ];
 
 app.use(
   cors({
@@ -31,17 +31,20 @@ app.use(
 
 app.use(express.json());
 
+// import and register community routes
+const communityRoutes = require("./routes/communities");
+app.use("/api/communities", communityRoutes)
+
 // import and register user routes
 const userRoutes = require("./routes/users");
 app.use("/api/users", userRoutes);
 
 // Import and register user authentication routes
-
 const userAuthRoutes = require("./routes/userauth");
 app.use("/api/users/auth", userAuthRoutes);
 
 const postRoutes = require("./routes/posts");
-app.use("/api/writepost", postRoutes);
+app.use("/api/posts", postRoutes);
 
 const PORT = process.env.PORT || 5000;
 
