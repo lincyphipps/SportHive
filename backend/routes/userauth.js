@@ -64,10 +64,12 @@ router.post("/login", async(req, res) => {
         }
 
         // generate a token for the user
-        const token = jwt.sign({username: user.username}, process.env.SECRET);
-        const userData = {_id: user._id, username: user.username, email: user.email}
-        res.json({ message: "User logged in successfully", token, user: userData });
-
+        const token = jwt.sign(
+            { id: user._id, username: user.username },
+            process.env.secret
+          );
+      
+          res.status(200).json({ token, user });
     }
     catch (error) {
         console.error("Error logging in user", error);

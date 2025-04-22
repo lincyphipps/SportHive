@@ -26,7 +26,10 @@ const Login = ({setIsLoggedIn}) => {
  const submission = async (e) => {
     e.preventDefault();
     try {
-
+        if (response.status === 200){
+          localStorage.setItem("token", response.data.token);
+          setIsLoggedIn(true);
+        }
       const response = await axios.post(
         `${BASE_URL}/api/users/auth/login`,
         { username, password },
@@ -39,7 +42,6 @@ const Login = ({setIsLoggedIn}) => {
           localStorage.setItem("user", JSON.stringify(response.data.user))
           navigate('/');
       }
-
     } catch (error) {
         console.error('Error logging user in: ', error);
         toast({
