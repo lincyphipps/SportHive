@@ -1,9 +1,9 @@
+require("dotenv").config();
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const User = require('../models/Users.js');
 const jwt = require('jsonwebtoken');
-require("dotenv").config();
 
 //signup route - create a new user
 router.post("/signup", async(req, res) => {
@@ -26,12 +26,18 @@ router.post("/signup", async(req, res) => {
         // hash the password
         const hashpass = await bcrypt.hash(password,10);
 
-        let newUser = new User({username, email, password: hashpass});
+        const newUser = new User({username, email, password: hashpass});
         await newUser.save();
+        // hash the password
+        //newUser.password = await bcrypt.hash(password, bcrypt.genSalt(10));
 
         // generate a token for the user
-        const token = jwt.sign(newUser.username, process.env.secret);
-        res.status(200).json({token});
+        const token = jwt.sign(
+            { username: newUser.username },
+            process.env.SECRET,
+            { expiresIn: "1h" }
+          );
+        return res.status(200).json({message: "User created successfully", token, user:{_id: newUser._id, username: newUser.username, email: newUser.email}});
     }
     catch (error) {
         console.error("Error adding user to the database", error);
@@ -41,15 +47,14 @@ router.post("/signup", async(req, res) => {
 
 // login route - authenticate an existing user
 router.post("/login", async(req, res) => {
-    const {username, email, password} = req.body;
+    const {username, password} = req.body;
 
     try {
         // check if user exists
-        let user = await User.findOne({username});
+        const user = await User.findOne({username});
         if (!user) {
             return res.status(403).json({message: 'User does not exist'});
         }
-
 
         // check if password is correct
         const match = await bcrypt.compare(password, user.password);
@@ -57,12 +62,11 @@ router.post("/login", async(req, res) => {
             return res.status(403).json({message: 'Wrong password'});
         }
 
-        console.log("User logged in successfully");
-        res.status(200).json({message: "User logged in successfully"});
-
         // generate a token for the user
-        const token = jwt.sign(user.username, process.env.secret);
-        res.json({token});
+        const token = jwt.sign(
+            { id: user._id, username: user.username, email: user.email, communities: user.communities, posts: user.posts},
+            process.env.SECRET);
+          res.status(200).json({ token, user });
     }
     catch (error) {
         console.error("Error logging in user", error);

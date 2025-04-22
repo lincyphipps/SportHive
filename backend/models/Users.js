@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-//const User = require('./User');
 
 // User schema
 const userSchema = new mongoose.Schema ({
@@ -20,7 +18,10 @@ const userSchema = new mongoose.Schema ({
   password: {
     type: String,
     required: true,
-  }
+  },
+  communities:[{type: mongoose.Schema.Types.ObjectID, ref: "Communities", default: []}],
+
+  posts: [{type: mongoose.Schema.Types.ObjectID, ref: "Posts", default: []}]
 });
 
 module.exports = mongoose.model("Users", userSchema);

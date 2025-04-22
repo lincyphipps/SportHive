@@ -1,11 +1,39 @@
+require("dotenv").config();
+console.log("Mongo URI from .env:", process.env.MONGO_URI);
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-require("dotenv").config();
 
 const app = express();
-app.use(cors());
+
+// const allowedOrigins = [
+//   "http://localhost:5173", // for local dev
+//   "https://sport-hive.vercel.app" // for live Vercel site
+// ];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      const allowedOrigins = [
+        "http://localhost:5173",
+        "https://sport-hive.vercel.app",
+      ];
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
+
 app.use(express.json());
+
+// import and register community routes
+const communityRoutes = require("./routes/communities");
+app.use("/api/communities", communityRoutes)
 
 // import and register user routes
 const userRoutes = require("./routes/users");
@@ -15,7 +43,6 @@ app.use("/api/users", userRoutes);
 const userAuthRoutes = require("./routes/userauth");
 app.use("/api/users/auth", userAuthRoutes);
 
-// Import and register post routes
 const postRoutes = require("./routes/posts");
 app.use("/api/posts", postRoutes);
 
