@@ -1,4 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  VStack,
+  Heading,
+  useColorModeValue,
+} from '@chakra-ui/react';
+import { useToast, Select } from "@chakra-ui/react";
+const BASE_URL = import.meta.env.VITE_API_URL;
+//const BASE_URL = 'http://localhost:5173';
 
 const CreateMessageBoard = ({ showMessageBox, setShowMessageBox }) => {
   const [messageText, setMessageText] = useState("");
@@ -18,22 +32,17 @@ const CreateMessageBoard = ({ showMessageBox, setShowMessageBox }) => {
 
   const handlePost = async () => {
     if (messageText.trim().length === 0) return;
-
     const token = localStorage.getItem("token");
-    console.log("Token being sent:", token);
+    //console.log("Token being sent:", token);
 
     try {
-      const response = await fetch(`${BASE_URL}/api/writepost/writepost`, {
+      const response = await fetch(`${BASE_URL}/api/posts/writepost`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          title: "Untitled",
-          text: messageText
-        })
-      });
+          "Authorization": `Bearer ${token}`},
+        body: JSON.stringify({title: "Untitled", text: messageText })
+      });  
 
       const data = await response.json();
 

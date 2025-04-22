@@ -29,11 +29,15 @@ router.post("/signup", async(req, res) => {
         const newUser = new User({username, email, password: hashpass});
         await newUser.save();
         // hash the password
-        newUser.password = await bcrypt.hash(password, bcrypt.gensalt(10));
+        //newUser.password = await bcrypt.hash(password, bcrypt.genSalt(10));
 
         // generate a token for the user
-        const token = jwt.sign(newUser.username, newUser.password);
-        return res.status(200).json({message: "User created successfully", token});
+        const token = jwt.sign(
+            { username: newUser.username },
+            process.env.SECRET,
+            { expiresIn: "1h" }
+          );
+        return res.status(200).json({message: "User created successfully", token, user:{_id: newUser._id, username: newUser.username, email: newUser.email}});
     }
     catch (error) {
         console.error("Error adding user to the database", error);
@@ -58,16 +62,13 @@ router.post("/login", async(req, res) => {
             return res.status(403).json({message: 'Wrong password'});
         }
 
-        console.log("User logged in successfully");
-
         // generate a token for the user
         const token = jwt.sign(
-            { id: user._id, username: user.username },
-            process.env.secret
+            { id: user._id, username: user.username, email: user.email },
+            process.env.SECRET
           );
       
           res.status(200).json({ token, user });
-
     }
     catch (error) {
         console.error("Error logging in user", error);

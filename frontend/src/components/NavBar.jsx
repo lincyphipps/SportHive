@@ -39,6 +39,11 @@ const NavBar = ({ onChatClick, isLoggedIn }) => {
                 <HStack spacing={2} alignItems="center">
                     {isLoggedIn && (
                         <>
+                        <Link to={"/profile"}>
+                        <Button>
+                            <FaUserCircle />
+                        </Button>
+                        </Link>
                         <Link to={"/create_community"}>
                         <Button>
                             <TbClipboardPlus />
@@ -51,11 +56,16 @@ const NavBar = ({ onChatClick, isLoggedIn }) => {
                         </Link>
                         </>
                     )}
-                    <Link to={"/login"}>
+                    { !isLoggedIn && (
+                        <>
+                        <Link to={"/login"}>
                         <Button>
                             <FaUserCircle />
                         </Button>
-                    </Link>
+                        </Link>
+                        </>
+                    )}
+                    
                     
                     <Button onClick={toggleColorMode}>
                         {colorMode === "light" ? "Dark" : "Light"}

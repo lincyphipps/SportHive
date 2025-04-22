@@ -11,6 +11,13 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { useToast, Select } from "@chakra-ui/react";
+import { Link, useNavigate } from 'react-router-dom';
+import { FaClipboardList } from "react-icons/fa";
+
+//const BASE_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = 'http://localhost:5173';
+
+
 
 const CreateCommunity = () => {
     const [communityData, setCommunityData] = useState({
@@ -20,7 +27,7 @@ const CreateCommunity = () => {
         max_size: "", //max number of possible members
         location: "", //not sure how best to implement this, maybe we can use zip codes?
     });
-
+    const navigate = useNavigate();
     const toast = useToast();
     //update state based on input
     const handleChange = (e) => {
@@ -32,20 +39,36 @@ const CreateCommunity = () => {
     //handle submisions which sends community data to backend
     const handleSubmission = async (e) => {
         e.preventDefault();
-
         try {
-            const response = await axios.post(
-                'http://localhost:5000/create_community', //replace with actual URL later on
-                communityData
-            );
+          const payload = {
+            sport: communityData.sport,
+            team: communityData.team_athlete,
+            privacy: communityData.privacy,
+            numMembers: parseInt(communityData.max_size, 10),
+            zip: parseInt(communityData.location, 10),
+          };
+      
+          const response = await axios.post(
+            `${BASE_URL}/api/communities/create_community`,
+            payload,
+            {headers:{"Content-Type": "application/json"}}
+          );          
 
-            toast({
-                title: "Community Created",
-                description: "Your community has been successfully created.",
-                status: "success",
-                duration: 5000,
-                isClosable: true,
-            });
+          toast({
+              title: "Community Created",
+              description: "Your community has been successfully created.",
+              status: "success",
+              duration: 5000,
+              isClosable: true,
+          });
+          navigate('/');
+          setCommunityData({
+            sport:"", //name of sport the community will be created for
+            team_athlete: "", //team or individual athlete the community will follow (should be an n/a option if the community is to be based on the sport as a whole)
+            privacy: "public", // options: public, invite, password (don't necessarily have to implement all of these but just some ideas on how)
+            max_size: "", //max number of possible members
+            location: "",
+          });
         } catch (error) {
             console.error("Community not created successfully", error);
             toast({
@@ -133,6 +156,13 @@ const CreateCommunity = () => {
               <Button type="submit" colorScheme="yellow" width="full">
                 Create Community
               </Button>
+
+              <Link to={"/join_community"}> 
+                <Button colorScheme ="gray" width="full" gap="2">
+                Join Community
+                <FaClipboardList />
+                </Button>  
+            </Link>
             </VStack>
           </form>
         </Box>

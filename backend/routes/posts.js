@@ -13,7 +13,7 @@ router.post("/writepost", async(req, res) => {
         if (!token) {
         return res.status(401).json({message: 'No token'});
         }
-        const decoded = jwt.verify(token, process.env.secret)
+        const decoded = jwt.verify(token, process.env.SECRET)
         const user = await User.findById(decoded.id);
         if (!user) {
             return res.status(403).json({message: 'User does not exist'});
