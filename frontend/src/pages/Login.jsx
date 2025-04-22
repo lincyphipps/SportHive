@@ -36,7 +36,7 @@ const Login = ({setIsLoggedIn}) => {
       if (response.status === 200){
           setIsLoggedIn(true);
           localStorage.setItem("token", response.data.token);
-          localStorage.setItem("user", JSON.stringify(response.data.user))
+          localStorage.setItem("user", JSON.stringify(response.data.user));
           navigate('/');
       }
     } catch (error) {
@@ -59,7 +59,7 @@ const Login = ({setIsLoggedIn}) => {
     <Box
       minH="100vh"
       bg={pageBg}
-      display="flex"
+      display="center"
       alignItems="center"
       justifyContent="center"
     >

@@ -68,8 +68,8 @@ router.post("/join_community/:communityId", async(req, res) => {
         const user = await User.findById(userId);
         if (!user) return res.status(404).json({ message: "User not found."});
 
-        if (!user.joinedCommunities.includes(communityId)){
-            user.joinedCommunities.push(communityId);
+        if (!user.communities.includes(communityId)){
+            user.communities.push(communityId);
             await user.save();
         }
         res.status(200).json({ message: "Joined community successfully"});
