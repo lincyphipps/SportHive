@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-const BASE_URL = 'http://localhost:5173';  // Or use the environment variable if needed
-import {
-  Textarea,
-  Button,
-  useToast
-} from '@chakra-ui/react';
 
 const BASE_URL = 'http://localhost:5173';  // Or use the environment variable if needed
 import {
+    Textarea,
+    useToast,
     Box,
     Button,
     FormControl,
@@ -132,10 +128,10 @@ const Profile = () => {
       {/* Posts Section */}
       <Box bg={cardBg} p={8} borderRadius="md" boxShadow="lg" w="100%" maxW="600px">
         <Heading size="md" mb={4}>{user.username}'s Posts</Heading>
-        {user.posts.length === 0 ? (
+        {posts.length === 0 ? (
           <Text>No posts yet.</Text>
         ) : (
-          user.posts.sort((a,b) => new Date(b.createdAt)-new Date(a.createdAt)).map((post) => (
+          posts.sort((a,b) => new Date(b.createdAt)-new Date(a.createdAt)).map((post) => (
             <Box key={post._id} p={4} borderWidth="1px" borderRadius="md" mb={2}>
               <Text><strong>Content:</strong> {post.text}</Text>
               <Text fontsize="sm" color="gray.500" mt={1}>Posted on {new Date(post.createdAt).toLocaleString()}</Text>
@@ -147,7 +143,7 @@ const Profile = () => {
       {/* Communities Section */}
       <Box bg={cardBg} p={8} borderRadius="md" boxShadow="lg" w="100%" maxW="600px">
         <Heading size="md" mb={4}>{user.username}'s Communities</Heading>
-        {user.communities.length === 0 ? (
+        {!user.communities || user.communities.length === 0 ? (
           <Text>No communities joined yet.</Text>
         ) : (
           user.communities.map((community) => (
