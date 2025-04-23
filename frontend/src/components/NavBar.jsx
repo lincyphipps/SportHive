@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Container, Flex, HStack, Text, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { FaUserPlus, FaComments, FaUserCircle } from "react-icons/fa";
-import { MdOutlineHive } from "react-icons/md";
+import { MdOutlineHive, MdEvent } from "react-icons/md";
 import { TbClipboardPlus } from "react-icons/tb";
 
 const NavBar = ({ onChatClick, isLoggedIn }) => {
@@ -52,6 +52,11 @@ const NavBar = ({ onChatClick, isLoggedIn }) => {
                         <Link to={"/message"}>
                         <Button onClick={onChatClick}>
                             <FaComments />
+                        </Button>
+                        </Link>
+                        <Link to="/events">
+                        <Button>
+                            <MdEvent />
                         </Button>
                         </Link>
                         </>

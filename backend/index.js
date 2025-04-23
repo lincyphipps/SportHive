@@ -16,7 +16,7 @@ app.use(
   cors({
     origin: function (origin, callback) {
       const allowedOrigins = [
-        "http://localhost:5173",
+        "http://localhost:5000", 
         "https://sport-hive.vercel.app",
       ];
       if (!origin || allowedOrigins.includes(origin)) {
@@ -43,8 +43,13 @@ app.use("/api/users", userRoutes);
 const userAuthRoutes = require("./routes/userauth");
 app.use("/api/users/auth", userAuthRoutes);
 
+// Import and register post routes
 const postRoutes = require("./routes/posts");
 app.use("/api/posts", postRoutes);
+
+// Import and register event routes
+const eventRoutes = require('./routes/events');
+app.use('/api/events', eventRoutes);
 
 const PORT = process.env.PORT || 5000;
 
