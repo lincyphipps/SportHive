@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FaUserPlus, FaComments, FaUserCircle } from "react-icons/fa";
 import { MdOutlineHive } from "react-icons/md";
 import { TbClipboardPlus } from "react-icons/tb";
+import { TiMessages } from "react-icons/ti";
 
 const NavBar = ({ onChatClick, isLoggedIn }) => {
     const { colorMode, toggleColorMode } = useColorMode();
@@ -54,6 +55,7 @@ const NavBar = ({ onChatClick, isLoggedIn }) => {
                             <FaComments />
                         </Button>
                         </Link>
+                
                         </>
                     )}
                     { !isLoggedIn && (
@@ -66,6 +68,11 @@ const NavBar = ({ onChatClick, isLoggedIn }) => {
                         </>
                     )}
                     
+                    <Link to={"/communities"}>
+                            <Button>
+                                <TiMessages />
+                            </Button>
+                    </Link>
                     
                     <Button onClick={toggleColorMode}>
                         {colorMode === "light" ? "Dark" : "Light"}
