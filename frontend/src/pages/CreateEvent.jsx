@@ -9,8 +9,8 @@ import {
   VStack,
   Heading,
   useColorModeValue,
+  useToast 
 } from '@chakra-ui/react';
-import { useToast } from "@chakra-ui/react";
 import { useNavigate } from 'react-router-dom';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
