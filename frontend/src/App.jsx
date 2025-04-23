@@ -10,6 +10,7 @@ import HomePage from "./pages/HomePage";
 import NavBar from "./components/NavBar";
 import CreateCommunity from "./pages/CreateCommunity";
 import SearchCommunities from './pages/SearchCommunities';
+import CommunityList from './pages/CommunityList';  
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import CreateEvent from './pages/CreateEvent';
@@ -34,6 +35,7 @@ function App() {
         <Route path='/profile' element ={<Profile />}/>
         <Route path='/create_event' element = {<CreateEvent />}/>
         <Route path="/events" element={<EventList isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>}/>
+        <Route path="/communities" element={<CommunityList />} />
       </Routes>
     </Box>
   );

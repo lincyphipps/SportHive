@@ -17,11 +17,16 @@ const BASE_URL = import.meta.env.VITE_API_URL;
 const CreateMessageBoard = ({ showMessageBox, setShowMessageBox }) => {
   const [messageText, setMessageText] = useState("");
   const [posts, setPosts] = useState([]);
-  const BASE_URL = import.meta.env.VITE_API_URL;
 
   const fetchPosts = async () => {
     try {
       const res = await fetch(`${BASE_URL}/api/posts/all`);
+      console.log("Fetching from:", `${BASE_URL}/api/posts/getposts`);
+      const res = await fetch(`${BASE_URL}/api/posts/getposts`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+      });
       const data = await res.json();
       console.log("Fetched posts:", data);
       setPosts(data);
