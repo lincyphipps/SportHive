@@ -10,6 +10,7 @@ import HomePage from "./pages/HomePage";
 import NavBar from "./components/NavBar";
 import CreateCommunity from "./pages/CreateCommunity";
 import SearchCommunities from './pages/SearchCommunities';
+import CommunityList from './pages/CommunityList';  
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 
@@ -30,6 +31,7 @@ function App() {
         <Route path='/login' element ={<Login setIsLoggedIn={setIsLoggedIn} />}/>
         <Route path='/message' element ={<CreateMessageBoard showMessageBox={showMessageBox} setShowMessageBox={setShowMessageBox} />}/>
         <Route path='/profile' element ={<Profile />}/>
+        <Route path="/communities" element={<CommunityList />} />
       </Routes>
     </Box>
   );
