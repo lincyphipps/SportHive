@@ -11,7 +11,7 @@ router.post("/writepost", async(req, res) => {
         // find the user from jwt token
         const token = req.header('Authorization').replace('Bearer ', '')
         if (!token) {
-        return res.status(401).json({message: 'No token'});
+        return res.status(403).json({message: 'No token'});
         }
         const decoded = jwt.verify(token, process.env.SECRET)
         const user = await User.findById(decoded.id);

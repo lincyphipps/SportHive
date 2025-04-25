@@ -20,6 +20,7 @@ const CreateMessageBoard = ({ showMessageBox, setShowMessageBox }) => {
 
   const fetchPosts = async () => {
     try {
+      const res = await fetch(`${BASE_URL}/api/posts/all`);
       console.log("Fetching from:", `${BASE_URL}/api/posts/getposts`);
       const res = await fetch(`${BASE_URL}/api/posts/getposts`, {
         headers: {
@@ -48,15 +49,13 @@ const CreateMessageBoard = ({ showMessageBox, setShowMessageBox }) => {
         body: JSON.stringify({title: "Untitled", text: messageText })
       });  
 
-      const data = await response.json();
-
       if (response.ok) {
         console.log("Post submitted!");
         setMessageText("");
         setShowMessageBox(false);
         fetchPosts();
       } else {
-        alert(data.message || "Failed to post");
+        alert(response.message || "Post submitted!");
       }
     } catch (err) {
       console.error(err);

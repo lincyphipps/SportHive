@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:5173';  // Or use the environment variable if needed
+const BASE_URL = import.meta.env.VITE_API_URL;  // Or use the environment variable if needed
 import {
     Textarea,
     useToast,

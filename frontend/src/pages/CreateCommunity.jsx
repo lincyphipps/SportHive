@@ -14,8 +14,8 @@ import { useToast, Select } from "@chakra-ui/react";
 import { Link, useNavigate } from 'react-router-dom';
 import { FaClipboardList } from "react-icons/fa";
 
-//const BASE_URL = import.meta.env.VITE_API_URL;
-const BASE_URL = 'http://localhost:5173';
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 
 
 

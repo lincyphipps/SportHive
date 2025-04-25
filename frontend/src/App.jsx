@@ -13,6 +13,8 @@ import SearchCommunities from './pages/SearchCommunities';
 import CommunityList from './pages/CommunityList';  
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
+import CreateEvent from './pages/CreateEvent';
+import EventList from './pages/EventList';
 
 function App() {
   const [showMessageBox, setShowMessageBox] = useState(false);
@@ -31,6 +33,8 @@ function App() {
         <Route path='/login' element ={<Login setIsLoggedIn={setIsLoggedIn} />}/>
         <Route path='/message' element ={<CreateMessageBoard showMessageBox={showMessageBox} setShowMessageBox={setShowMessageBox} />}/>
         <Route path='/profile' element ={<Profile />}/>
+        <Route path='/create_event' element = {<CreateEvent />}/>
+        <Route path="/events" element={<EventList isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>}/>
         <Route path="/communities" element={<CommunityList />} />
       </Routes>
     </Box>
