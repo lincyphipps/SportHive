@@ -20,7 +20,7 @@ const CreateMessageBoard = ({ showMessageBox, setShowMessageBox }) => {
 
   const fetchPosts = async () => {
     try {
-      const res = await fetch(`${BASE_URL}/api/posts/all`);
+      //const res = await fetch(`${BASE_URL}/api/posts/all`);
       console.log("Fetching from:", `${BASE_URL}/api/posts/getposts`);
       const res = await fetch(`${BASE_URL}/api/posts/getposts`, {
         headers: {
